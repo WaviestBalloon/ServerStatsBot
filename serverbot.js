@@ -13,7 +13,7 @@ client.on('message', async (message) => {
 		console.log(cpuspeed)
 		let embed = new Discord.MessageEmbed()
 			.setTitle("WavServer system information")
-			.setDescription(`CPU stress: ${Math.floor(cpu.currentLoad)}%\nCPU temperature: ${temp.main}°C\nCPU clock: ${cpuspeed.avg}GHz\nMemory: ${mem.used / 0.000000001}GB/${mem.total / 0.000000001}GB`)
+			.setDescription(`CPU stress: ${Math.floor(cpu.currentLoad)}%\nCPU temperature: ${temp.main}°C\nCPU clock: ${cpuspeed.avg}GHz\nMemory: ${mem.used / 1000000000}GB/${mem.total / 1000000000}GB`)
 
 		message.reply({ embeds: [embed] })
 	}
