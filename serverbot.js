@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const sysinfo = require('systeminformation');
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
 
-function sendandupdate(context) {
+async function sendandupdate(context) {
 	let temp = await sysinfo.cpuTemperature()
 	let cpu = await sysinfo.currentLoad()
 	let cpuspeed = await sysinfo.cpuCurrentSpeed()
