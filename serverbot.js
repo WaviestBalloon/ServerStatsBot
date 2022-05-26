@@ -23,7 +23,7 @@ async function sendandupdate(context, isinteraction) {
 
 	let embeddata = new MessageEmbed()
 		.setTitle("WavServer system information")
-		.setDescription(`CPU stress: **${Math.floor(cpu.currentLoad)}%**\nCPU temperature: **${temp.main}°C**\nCPU clock: **${cpuspeed.avg}GHz**\nMemory: **${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB**\n\n\`Processor utilisation\`${bar(cpu.currentLoad, 100)}]\n\`Memory utilisation\`${bar(mem.used, mem.total)}`)
+		.setDescription(`CPU stress: **${Math.floor(cpu.currentLoad)}%**\nCPU temperature: **${temp.main}°C**\nCPU clock: **${cpuspeed.avg}GHz**\nMemory: **${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB**\n\n\`Processor utilisation\`${bar(cpu.currentLoad, 100)}\n\`Memory utilisation\`${bar(mem.used, mem.total)}`)
 	let row = new MessageActionRow()
 		.addComponents(
 			new MessageButton()
