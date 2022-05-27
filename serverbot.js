@@ -22,13 +22,13 @@ async function sendandupdate(context, isinteraction) {
 	let mem = await sysinfo.mem()
 
 	let data = `Processor stress
-${Math.floor(cpu.currentLoad)}% ${bar(cpu.currentLoad, 100)} 100%
+${bar(cpu.currentLoad, 100)} ${Math.floor(cpu.currentLoad)}%/100%
 Processor clock speed
-${cpuspeed.avg}GHz ${bar(cpuspeed.avg, cpuspeed.max)} ${cpuspeed.max}GHz
+${bar(cpuspeed.avg, cpuspeed.max)} ${cpuspeed.avg}GHz/${cpuspeed.max}GHz
 Processor temperature
-${temp.main}°C ${bar(temp.main, temp.max)} ${temp.max}°C
+${bar(temp.main, temp.max)} ${temp.main}°C/${temp.max}°C
 Memory utilisation
-${(mem.used / 1000000000).toPrecision(3)}GB ${bar(mem.used, mem.total)} ${(mem.total / 1000000000).toPrecision(3)}GB`
+${bar(mem.used, mem.total)} ${(mem.used / 1000000000).toPrecision(3)}GB/${(mem.total / 1000000000).toPrecision(3)}GB`
 
 	let embeddata = new MessageEmbed()
 		.setTitle("WavServer system information")
