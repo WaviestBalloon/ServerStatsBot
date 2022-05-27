@@ -3,12 +3,12 @@ const sysinfo = require('systeminformation');
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 function bar(completed, total) {
-	let percent = Math.floor(completed / total * 15)
+	let percent = Math.floor(completed / total * 20)
 	let bar = ""
 	for (let i = 0; i < percent; i++) {
 		bar += "█"
 	}
-	for (let i = percent; i < 15; i++) {
+	for (let i = percent; i < 20; i++) {
 		bar += "░"
 	}
 	return bar
@@ -21,9 +21,19 @@ async function sendandupdate(context, isinteraction) {
 	let cpuspeed = await sysinfo.cpuCurrentSpeed()
 	let mem = await sysinfo.mem()
 
+	let data = `Processor stress
+${cpu.currentLoad}% \`${bar(cpu.currentLoad, 100)}\` 100%
+Processor clock speed
+${cpuspeed.avg}GHz \`${bar(cpuspeed.avg, cpuspeed.max)}\` ${cpuspeed.max}GHz
+Processor temperature
+${temp.main}°C \`${bar(temp.main, temp.max)}\` ${temp.max}°C
+Memory utilisation
+${(mem.used / 1000000000).toPrecision(3)}GB \`${bar(mem.used, mem.total)}\` ${(mem.total / 1000000000).toPrecision(3)}GB`
+
 	let embeddata = new MessageEmbed()
 		.setTitle("WavServer system information")
-		.setDescription(`CPU stress: **${Math.floor(cpu.currentLoad)}%**\nCPU temperature: **${temp.main}°C**\nCPU clock: **${cpuspeed.avg}GHz**\nMemory: **${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB**\n\n\`Processor utilisation\`${bar(cpu.currentLoad, 100)}\n\`Memory utilisation\`${bar(mem.used, mem.total)}`)
+		.setDescription(data)
+		//.setDescription(`CPU stress: **${Math.floor(cpu.currentLoad)}%**\nCPU temperature: **${temp.main}°C**\nCPU clock: **${cpuspeed.avg}GHz**\nMemory: **${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB**\n\n\`Processor utilisation\`\n\`${bar(cpu.currentLoad, 100)}\`\n\`Memory utilisation\`\n\`${bar(mem.used, mem.total)}\`\n\`Processors clock speed (Avg)\`\n\`${bar(cpuspeed.avg, cpuspeed.max)}\``)
 	let row = new MessageActionRow()
 		.addComponents(
 			new MessageButton()
@@ -53,7 +63,7 @@ client.on("interactionCreate", async (interaction) => {
 					.setStyle("DANGER"),
 			);
 		//interaction.deferReply()
-		interaction.message.edit({ embeds: [new MessageEmbed().setDescription("Fetching system data")], components: [row] })
+		await interaction.message.edit({ embeds: [new MessageEmbed().setDescription("Fetching system data")], components: [row] })
 		sendandupdate(interaction, true)
 	}
 })
