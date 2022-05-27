@@ -9,7 +9,7 @@ function bar(completed, total) {
 		bar += "█"
 	}
 	for (let i = percent; i < 20; i++) {
-		bar += "▒"
+		bar += "░"
 	}
 	return bar
 }
@@ -22,13 +22,13 @@ async function sendandupdate(context, isinteraction) {
 	let mem = await sysinfo.mem()
 
 	let data = `Processor stress
-${bar(cpu.currentLoad, 100)} ${Math.floor(cpu.currentLoad)}%/100%
+${bar(cpu.currentLoad, 100)} ${Math.floor(cpu.currentLoad)}%**/**100%
 Processor clock speed
-${bar(cpuspeed.avg, cpuspeed.max)} ${cpuspeed.avg}GHz/${cpuspeed.max}GHz
+${bar(cpuspeed.avg, cpuspeed.max)} ${cpuspeed.avg}GHz**/**${cpuspeed.max}GHz
 Processor temperature
-${bar(temp.main, temp.max)} ${temp.main}°C/${temp.max}°C
+${bar(temp.main, temp.max)} ${temp.main}°C**/**${temp.max}°C
 Memory utilisation
-${bar(mem.used, mem.total)} ${(mem.used / 1000000000).toPrecision(3)}GB/${(mem.total / 1000000000).toPrecision(3)}GB`
+${bar(mem.used, mem.total)} ${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB`
 
 	let embeddata = new MessageEmbed()
 		.setTitle("WavServer system information")
