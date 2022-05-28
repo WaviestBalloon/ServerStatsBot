@@ -6,7 +6,11 @@ function bar(completed, total) {
 	let percent = Math.floor(completed / total * 20)
 	let bar = ""
 	for (let i = 0; i < percent; i++) {
-		bar += "█"
+		/*if (i - 1 < percent) {
+			bar += "▒"
+		} else {*/
+			bar += "█"
+		//}
 	}
 	for (let i = percent; i < 20; i++) {
 		bar += "░"
@@ -21,17 +25,16 @@ async function sendandupdate(context, isinteraction) {
 	let cpuspeed = await sysinfo.cpuCurrentSpeed()
 	let mem = await sysinfo.mem()
 
-	let data = `Processor stress
+	let data = `Processor utilisation
 ${bar(cpu.currentLoad, 100)} ${Math.floor(cpu.currentLoad)}%**/**100%
 Processor clock speed
 ${bar(cpuspeed.avg, cpuspeed.max)} ${cpuspeed.avg}GHz**/**${cpuspeed.max}GHz
 Processor temperature
-${bar(temp.main, temp.max)} ${temp.main}°C**/**${temp.max}°C
+${bar(temp.main, 100)} ${temp.main}°C**/**100°C
 Memory utilisation
 ${bar(mem.used, mem.total)} ${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB`
 
 	let embeddata = new MessageEmbed()
-		.setTitle("WavServer system information")
 		.setDescription(data)
 		//.setDescription(`CPU stress: **${Math.floor(cpu.currentLoad)}%**\nCPU temperature: **${temp.main}°C**\nCPU clock: **${cpuspeed.avg}GHz**\nMemory: **${(mem.used / 1000000000).toPrecision(3)}GB**/**${(mem.total / 1000000000).toPrecision(3)}GB**\n\n\`Processor utilisation\`\n\`${bar(cpu.currentLoad, 100)}\`\n\`Memory utilisation\`\n\`${bar(mem.used, mem.total)}\`\n\`Processors clock speed (Avg)\`\n\`${bar(cpuspeed.avg, cpuspeed.max)}\``)
 	let row = new MessageActionRow()
