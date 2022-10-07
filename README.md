@@ -1,5 +1,7 @@
 # A poorly written Discord bot to keep track of server statistics
 
+I'm not updating this anymore
+
 # Installation
 - Clone repo
 - Run `npm i`
